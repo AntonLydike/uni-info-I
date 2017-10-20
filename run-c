@@ -24,4 +24,6 @@ $(realpath $OUTPUT);
 
 rm $OUTPUT;
 
+printf "\nDone!\n";
+
 exit 0;

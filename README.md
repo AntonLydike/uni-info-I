@@ -27,3 +27,16 @@ Here I'll try to add a few comments for each assignment.
  - `addOrMultiply.c` Clean source code. Ran `atom-beautify`, added curly
     brackets for else back in and moved the declaration for int a inside to
     keep variables inside their respective scopes.
+
+## Examples
+
+### 1
+
+ - `bsp01.c` calculates the greatest common divisor.
+ - `bsp01b.c` is a slightly more mangled version of the normal one. And the
+    parameters have changed. it now finds the GCD of 80 and 42 (which is 2).
+    (Instead of 30 and 42, which would be 6).
+ - `bsp02.c` outputs the number of arguments received, then the name of the
+    binary (or better the command with which it was called) and finally the
+    number of characters the name has.
+ - `bsp03.c` prompts the user for a number, then outputs that number.
