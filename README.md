@@ -1,4 +1,4 @@
-# uni-info-I
+# Informatics I
 Assignments from course "Informatics I" at uni Augbsurg.
 
 ## setup
