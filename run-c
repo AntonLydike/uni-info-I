@@ -1,0 +1,27 @@
+#!/bin/bash
+
+FILE="$1";
+OUTPUT=/tmp/compiled.out;
+RUN_THE_DAMN_THING=true;
+
+if [ "$2" == "--output" ] || [ "$2" == "-o" ]; then
+	OUTPUT="$3";
+	RUN_THE_DAMN_THING=false;
+fi;
+
+printf "## compiling...\n";
+
+gcc -Wall -Wextra -ansi -pedantic $FILE -o $OUTPUT
+
+if [ "$RUN_THE_DAMN_THING" == false ]; then
+	printf "\n## Done!\n";
+	exit 0;
+fi;
+
+printf "## running:\n==========================\n";
+
+$(realpath $OUTPUT);
+
+rm $OUTPUT;
+
+exit 0;
