@@ -7,7 +7,7 @@ output_path=/tmp/compiled.out;
 # if the program should be run
 run_the_damn_thing=true;
 # remove after it ran
-remove_when_done=true;
+remove_when_done=false;
 # keep track of how many arguments this script recieved as the rest of them is
 # for the compiled program
 expected_arg_count=1;
@@ -57,7 +57,7 @@ fi
 printf "## compiling...\n";
 
 # compile with flags to output_path
-if gcc -Wall -Wextra -ansi -pedantic $file -o $output_path; then
+if gcc -Wall -Wextra -ansi -pedantic $file -o $output_path -lm; then
 	# if the compilation was successful:
 
 	# if it it's not meant to be run quite yet, exit;
