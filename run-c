@@ -1,29 +1,93 @@
 #!/bin/bash
 
-FILE="$1";
-OUTPUT=/tmp/compiled.out;
-RUN_THE_DAMN_THING=true;
+# input file
+file="$1";
+# output path defaults in temp
+output_path=/tmp/compiled.out;
+# if the program should be run
+run_the_damn_thing=true;
+# remove after it ran
+remove_when_done=true;
+# keep track of how many arguments this script recieved as the rest of them is
+# for the compiled program
+expected_arg_count=1;
+# initialize args for the program
+args="";
 
+# if an output path is specified
 if [ "$2" == "--output" ] || [ "$2" == "-o" ]; then
-	OUTPUT="$3";
-	RUN_THE_DAMN_THING=false;
+	# overwrite path, don't run, just compile.
+	output_path="$3";
+	run_the_damn_thing=false;
+	remove_when_done=false;
+	# keep track of arg count
+	expected_arg_count=$(($expected_arg_count + 2));
+
+	# if the program should be executed
+	if [ "$4" == "-r" ] || [ "$4" == "--run" ]; then
+		run_the_damn_thing=true;
+		# keep track of arg counter!
+		expected_arg_count=$(($expected_arg_count + 1));
+	fi;
+
 fi;
+
+# increase arg count by one, this is the first one that should be passed on
+expected_arg_count=$(($expected_arg_count + 1));
+
+# if more arguments are present than this script needed, they're for the program
+if [ $# -ge $expected_arg_count ]; then
+
+	# read first argument
+  args="${!expected_arg_count}";
+
+	# while there is another argument, add it to the args variable
+  while shift && [ -n "${!expected_arg_count}" ]; do
+    args="${args} ${!expected_arg_count}";
+  done;
+
+  echo "program will be run with these args: \"$args\"";
+
+else
+
+  printf "no args for program added.\n";
+
+fi
 
 printf "## compiling...\n";
 
-gcc -Wall -Wextra -ansi -pedantic $FILE -o $OUTPUT
+# compile with flags to output_path
+if gcc -Wall -Wextra -ansi -pedantic $file -o $output_path; then
+	# if the compilation was successful:
 
-if [ "$RUN_THE_DAMN_THING" == false ]; then
-	printf "\n## Done!\n";
-	exit 0;
+	# if it it's not meant to be run quite yet, exit;
+	if [ "$run_the_damn_thing" == false ]; then
+		printf "\n## done!\n";
+		exit 0;
+	fi;
+
+	# build command string, start with the path to the program.
+	cmd=$(realpath $output_path);
+
+	# add arguments
+	cm+=" $args";
+
+	printf "## running:\n==========================\n";
+
+	# run program with args
+	eval $cmd;
+
+	# if the program is to be removed afterwards
+	if [ "$remove_when_done" == true ]; then
+		rm $output_path;
+	fi;
+
+	printf "done!\n";
+
+else
+
+	printf "## compiling failed... Aborting\n";
+
 fi;
-
-printf "## running:\n==========================\n";
-
-$(realpath $OUTPUT);
-
-rm $OUTPUT;
-
-printf "\nDone!\n";
 
 exit 0;

@@ -1,7 +1,19 @@
 # Informatics I
-Assignments from course "Informatics I" at uni Augbsurg.
+Assignments from course "Informatics I" at uni Augbsurg (WS17/18)
 
-## setup
+## Structure
+
+**Examples** will be added regularly from digicampus. The structure is self
+explanatory.
+
+**Assignments** are organized like this: `assignements/<number>/<taskName>.c`.
+If the task has separate subtasks, the subtasks are organized in folders, eg.
+`assignements/1/2/a.c` contains the code for assignement 1, task 2, subtask a.
+
+Anything of value covered in a **lecture** can be found inside
+`lectures/<lectureDate>`.
+
+## Setup
 
 I am using atom with the following c-related packages (I'll try to keep this
 list curated):
@@ -12,15 +24,28 @@ list curated):
 
 I also wrote a small script to compile and run the code. This is how to use it:
 
- - `./run-c <filename.c>` compile `<filename.c>` with the required flags
-    (-Wall -Wextra -ansi -pedantic) and the run it. Run arguments aren't (yet)
-    supported. The program is deleted after it completed.
- - `./run-c <filename.c> --output <output>` compile with the flags above but
-    don't run it.
+ - `./run-c <filename.c> [args...]` compile `<filename.c>` with the required flags
+    (-Wall -Wextra -ansi -pedantic) and the run it. Everything after `<filename.c>`
+    will be passed on to the program as arguments.
+ - `./run-c <filename.c> --output|-o <output> [--run|-r args...]` compile with
+    the flags above. Only run it, if `--run` or `-r` is specified. All arguments
+    after the `run` flag are passed onto the program.
+
+Examples:
+
+ - `./run-c examples/1/bsp01.c` compile and run the first example.
+ - `./run-c examples/1/bsp01.c --arg1 arg2 345` compile the first example, the
+    run it and pass `--arg1 arg2 345` to it.
+ - `./run-c examples/1/bsp01.c -o program.out` compile the first example to
+    `program.out`.
+ - `./run-c examples/1/bsp01.c -o program.out -r` compile the first example to
+    `program.out` and run it.
+ - `./run-c examples/1/bsp01.c -o program.out --arg1 --arg2` compile the first
+    example to `program.out`. It won't be run and the arguments will be ignored.
 
 ## Assignments
 
-Here I'll try to add a few comments for each assignment.
+Here I'll try to add a few comments for assignment as I see fit.
 
 ### 0
 
