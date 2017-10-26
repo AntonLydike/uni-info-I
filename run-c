@@ -70,7 +70,7 @@ if gcc -Wall -Wextra -ansi -pedantic $file -o $output_path; then
 	cmd=$(realpath $output_path);
 
 	# add arguments
-	cm+=" $args";
+	cmd+=" $args";
 
 	printf "## running:\n==========================\n";
 
