@@ -8,4 +8,4 @@ int main(void)
 	return 0;
 }
 
-// Ausgabe: 5.50
+/* Ausgabe: 5.50 */
