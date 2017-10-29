@@ -1,0 +1,50 @@
+#!/bin/bash
+
+# folder
+target_root=$1
+output_file="${target_root/\//\-}.md"
+
+# clear file
+printf "" > $output_file
+
+# markdown tag for code
+CODE_TAG="\`\`\`\`"
+
+function process_dir {
+  # get target directory
+  root=$1
+  depth=$2
+
+  printname=$(basename $root)
+  printf "$depth $printname)\n\n" >> $output_file
+
+  for current in `ls -v $root`; do
+    # this is required, because the folder subroutine seems to overwrite it
+    root=$1
+    d="$root/$current"
+
+    if [ -d "$d" ]; then
+      # if it's a folder, scan it
+      printf "$d\n"
+      process_dir $d "${depth}#"
+    else
+      # if it's a file, record it's contents
+      printf "$d\n"
+      printname=$(basename $d .c)
+      printf "${depth}# $printname)\n\n${CODE_TAG}c\n" >> $output_file
+      cat $d >> $output_file
+      printf "\n$CODE_TAG\n\n" >> $output_file
+      printf "";
+    fi;
+  done;
+}
+
+process_dir $target_root "#"
+
+if command -v grip > /dev/null; then
+  echo "grip detected"
+  grip $output_file --export "$(basename $output_file .md).html"
+  rm $output_file;
+else
+  echo "grip not found! - please install grip!"
+fi;

@@ -6,9 +6,9 @@ Assignments from course "Informatics I" at uni Augbsurg (WS17/18)
 **Examples** will be added regularly from digicampus. The structure is self
 explanatory.
 
-**Assignments** are organized like this: `assignements/<number>/<taskName>.c`.
+**Assignments** are organized like this: `assignments/<number>/<taskName>.c`.
 If the task has separate subtasks, the subtasks are organized in folders, eg.
-`assignements/1/2/a.c` contains the code for assignement 1, task 2, subtask a.
+`assignments/1/2/a.c` contains the code for assignment 1, task 2, subtask a.
 
 Anything of value covered in a **lecture** can be found inside
 `lectures/<lectureDate>`.
@@ -42,6 +42,13 @@ Examples:
     `program.out` and run it.
  - `./run-c examples/1/bsp01.c -o program.out --arg1 --arg2` compile the first
     example to `program.out`. It won't be run and the arguments will be ignored.
+
+And for hand-ins I created a small script that copys all the code in a folder
+and it's subfolders, orders it and then outputs it to a single markdown or html
+file (if conversion is possible through [`grip`](https://github.com/joeyespo/grip)).
+To run it just type `./concat-assignments assignments/<number>` to compile a
+complete list of all code written for an assignment.
+
 
 ## Assignments
 
