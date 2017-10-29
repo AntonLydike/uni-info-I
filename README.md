@@ -49,6 +49,8 @@ file (if conversion is possible through [`grip`](https://github.com/joeyespo/gri
 To run it just type `./concat-assignments assignments/<number>` to compile a
 complete list of all code written for an assignment.
 
+The cover `turn-in-cover.pdf` can be prefixed to a pdf with 
+`pdfunite turn-in-cover.pdf assignment-X.pdf assignment-X-final.pdf`.
 
 ## Assignments
 
