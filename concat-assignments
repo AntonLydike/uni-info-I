@@ -60,3 +60,110 @@ if command -v grip > /dev/null; then
 else
   echo "grip not found! - please install grip!"
 fi;
+
+# possible further: inject some js into page to printify it (make page-breaks not break code, etc...)
+
+# script:
+# (() => {
+#
+#   let container  = document.querySelectorAll('article')[0],
+#       children   = Array.from(container.children),
+#       length     = container.childElementCount,
+#       elemBuffer = [];
+#
+#   for (let i = 1; i < length; i++) {
+#     let prev = children[i - 1],
+#         curr = children[i];
+#
+#     if (curr.tagName.indexOf("H") !== 0) {
+#       if (prev.tagName.indexOf("H") == 0) {
+#         elemBuffer.push(prev);
+#       }
+#
+#       elemBuffer.push(curr);
+#
+#     } else {
+#       if (elemBuffer.length > 0) {
+#         let wrapper = document.createElement("div");
+#
+#         wrapper.classList.add('no-line-breaks');
+#
+#         elemBuffer.forEach((elm) => {
+#           wrapper.appendChild(elm);
+#         })
+#
+#         container.insertBefore(wrapper, curr);
+#
+#         elemBuffer = [];
+#       }
+#     }
+#   }
+#
+#   if (elemBuffer.length > 0) {
+#     let wrapper = document.createElement("div");
+#
+#     wrapper.classList.add('no-line-breaks');
+#
+#     elemBuffer.forEach((elm) => {
+#       wrapper.appendChild(elm);
+#     })
+#
+#     container.appendChild(wrapper);
+#   }
+#
+#   let styleNode = document.createElement("style");
+#   styleNode.innerHTML = `#readme > h3 {
+#   display: none;
+# }
+#
+# article#grip-content {
+#   border: none;
+# }
+#
+# div#preview-page {
+#   margin: 0;
+# }
+#
+# .no-line-breaks {
+#   page-break-inside: avoid;
+#
+# }
+#
+# footer {
+#   font-size: 16px;
+#   color: rgba(0,0,0,0.78);
+# }
+#
+# @media print {
+#   footer {
+#     position: fixed;
+#     bottom: 0;
+#     left: 67.5px;
+#     right: 67.5px;
+#   }
+#
+#   .content-block, p {
+#     page-break-inside: avoid;
+#   }
+#
+#   html, body {
+#     width: 210mm;
+#     height: 297mm;
+#   }
+# }
+# .align-right {
+#   float: right;
+# }
+# `;
+#   document.body.appendChild(styleNode);
+#
+#
+#   let footer = document.createElement("footer");
+#   footer.innerText="Benjamin Ritter, Marina Huber und Anton Lydike";
+#
+#   footer.innerHTML += `<span class="align-right">${document.querySelector("h1").innerText}</span>`;
+#   container.appendChild(footer);
+# })()
+
+# convert to pdf with chrome (https://superuser.com/questions/592974/how-to-print-to-save-as-pdf-from-a-command-line-with-chrome-or-chromium)
+# or wkhtmltopdf
