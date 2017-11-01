@@ -1,32 +1,10 @@
 #include <stdio.h>
 #include <math.h>
-/* wird das wirklich benötigt? */
-
-/* define PI -  only needed incase I misunderstood circumference*/
-#define M_PI acos(-1.0)
+/* wird math.h wirklich benötigt? */
 
 double calc_circumference_square(double length, double width)
 {
 	return 2 * (length + width);
-
-	/*
-	   // circumference of smallest and largest possible circle:
-	   double smaller, larger;
-
-	   if (length < width) {
-	        smaller = length;
-	        larger = width;
-	   } else {
-	        smaller = width;
-	        larger = length;
-	   }
-
-	   // smallest
-	   return M_PI * smaller;
-
-	   // larger
-	   return M_PI * larger;
-	 */
 }
 
 int main(void)
