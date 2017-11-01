@@ -19,8 +19,15 @@ function process_dir {
   depth=$2
 
   # only print the folder name (in this case the assignment number)
-  printname=$(basename $root)
-  printf "$depth $printname)\n\n" >> $output_file
+  printname="$(basename $root))"
+
+  # print "Assignment #" instead of "#)" for the top level heading
+  if [ $depth == '#' ]; then
+    printname="Assignment "
+    printname+=$(basename $root)
+  fi;
+
+  printf "$depth $printname\n\n" >> $output_file
 
   for current in `ls -v $root`; do
     # this is required, because the folder subroutine seems to overwrite it
@@ -51,11 +58,38 @@ function process_dir {
   done;
 }
 
-process_dir $target_root "#"
+if [[ $target_root =~ \.md$ ]]; then
+  # if a markdown file is specified, just convert it
+
+  echo "converting markdown file $target_root";
+
+  output_file="$target_root";
+
+else
+  # otherwise create a new one
+  process_dir $target_root "#"
+
+fi;
 
 if command -v grip > /dev/null; then
   echo "grip detected"
-  grip $output_file --export "$(basename $output_file .md).html"
+
+  html_output_file="$(basename $output_file .md).html"
+  grip $output_file --export $html_output_file
+
+  # append code to make page printer-friendly
+  cat printify.html >> $html_output_file
+
+  filepath="file://$(realpath $html_output_file)";
+
+  if command -v chromium-browser > /dev/null; then
+    chromium-browser --headless --print-to-pdf="$(basename $output_file .md).pdf" $filepath
+  elif command -v google-chrome > /dev/null; then
+    google-chrome --headless --print-to-pdf="$(basename $output_file .md).pdf" $filepath
+  else;
+    echo "Sadly neither chrome nor chromium are presesent, so there is no easy way to convert the html to pdf."
+  fi;
+
   # rm $output_file;
 else
   echo "grip not found! - please install grip!"
@@ -167,3 +201,6 @@ fi;
 
 # convert to pdf with chrome (https://superuser.com/questions/592974/how-to-print-to-save-as-pdf-from-a-command-line-with-chrome-or-chromium)
 # or wkhtmltopdf
+
+# to wkhtmltopdf:
+# unusable because the js isn't executed before printing...
