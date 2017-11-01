@@ -2,6 +2,7 @@
 
 # folder
 target_root=$1
+# output file name is path, but replace all slashes with dashes, add md ending
 output_file="${target_root/\//\-}.md"
 
 # clear file
@@ -10,17 +11,23 @@ printf "" > $output_file
 # markdown tag for code
 CODE_TAG="\`\`\`\`"
 
+# recursive function
 function process_dir {
   # get target directory
   root=$1
+  # get the depth, represented
   depth=$2
 
+  # only print the folder name (in this case the assignment number)
   printname=$(basename $root)
   printf "$depth $printname)\n\n" >> $output_file
 
   for current in `ls -v $root`; do
     # this is required, because the folder subroutine seems to overwrite it
     root=$1
+    depth=$2
+
+    # d is the current file or folder
     d="$root/$current"
 
     if [ -d "$d" ]; then
@@ -28,13 +35,18 @@ function process_dir {
       printf "$d\n"
       process_dir $d "${depth}#"
     else
-      # if it's a file, record it's contents
-      printf "$d\n"
-      printname=$(basename $d .c)
-      printf "${depth}# $printname)\n\n${CODE_TAG}c\n" >> $output_file
-      cat $d >> $output_file
-      printf "\n$CODE_TAG\n\n" >> $output_file
-      printf "";
+      # only print c and h files
+      if [ "${d: -2}" == ".c" ] || [ "${d: -2}" == ".h" ]; then
+        # if it's a file, record it's contents
+        printf "$d\n"
+        # get the filename without the ending
+        printname=$(basename $d .c)
+
+        printf "${depth}# $printname)\n\n${CODE_TAG}c\n" >> $output_file
+        cat $d >> $output_file
+        printf "\n$CODE_TAG\n\n" >> $output_file
+        printf "";
+      fi;
     fi;
   done;
 }
@@ -44,7 +56,7 @@ process_dir $target_root "#"
 if command -v grip > /dev/null; then
   echo "grip detected"
   grip $output_file --export "$(basename $output_file .md).html"
-  rm $output_file;
+  # rm $output_file;
 else
   echo "grip not found! - please install grip!"
 fi;
