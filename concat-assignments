@@ -42,17 +42,35 @@ function process_dir {
       printf "$d\n"
       process_dir $d "${depth}#"
     else
-      # only print c and h files
+
+      # get the filename without the ending
+      printname=$(basename ${d%.*})
+
+      # only print c, h, png, jpg and md files
       if [ "${d: -2}" == ".c" ] || [ "${d: -2}" == ".h" ]; then
         # if it's a file, record it's contents
-        printf "$d\n"
-        # get the filename without the ending
-        printname=$(basename $d .c)
+        printf "$d [code]\n"
 
         printf "${depth}# $printname)\n\n${CODE_TAG}c\n" >> $output_file
         cat $d >> $output_file
         printf "\n$CODE_TAG\n\n" >> $output_file
         printf "";
+      elif [ "${d: -4}" == ".png" ] || [ "${d: -4}" == ".jpg" ]; then
+        # if it's an image, link to it
+        printf "$d [img]\n"
+
+        # insert image as markdown tag
+        printf "${depth}# $printname)\n\n![$d]($d)\n\n" >> $output_file
+
+      elif [ "${d: -3}" == ".md" ]; then
+        # if it's an image, link to it
+        printf "$d [md]\n"
+
+        # insert image as markdown tag
+        printf "${depth}# $printname)\n\n" >> $output_file
+        cat $d >> $output_file
+        printf "\n\n" >> $output_file
+
       fi;
     fi;
   done;
@@ -72,7 +90,6 @@ else
 fi;
 
 if command -v grip > /dev/null; then
-  echo "grip detected"
 
   html_output_file="$(basename $output_file .md).html"
   grip $output_file --export $html_output_file > /dev/null 2> /dev/null
@@ -80,17 +97,33 @@ if command -v grip > /dev/null; then
   # append code to make page printer-friendly
   cat printify.html >> $html_output_file
 
-  filepath="file://$(realpath $html_output_file)";
+  filepath="file://$(realpath $html_output_file)"
+  pdf_output_file=$(basename $output_file .md)-no-cover.pdf
 
   if command -v chromium-browser > /dev/null; then
+<<<<<<< Updated upstream
     chromium-browser --headless --print-to-pdf="$(basename $output_file .md).pdf" $filepath > /dev/null
   elif command -v google-chrome > /dev/null; then
     google-chrome --headless --print-to-pdf="$(basename $output_file .md).pdf" $filepath > /dev/null
+=======
+    echo "Printing pdf using chromium-browser...";
+    chromium-browser --headless --print-to-pdf="$pdf_output_file" $filepath > /dev/null 2> /dev/null
+  elif command -v google-chrome > /dev/null; then
+    echo "Printing pdf using google-chrome...";
+    google-chrome --headless --print-to-pdf="$pdf_output_file" $filepath > /dev/null 2> /dev/null
+>>>>>>> Stashed changes
   else
     echo "Sadly neither chrome nor chromium are presesent, so there is no easy way to convert the html to pdf."
+    exit 0;
   fi;
 
-  # rm $output_file;
+  # add cover to pdf and save as a cover version
+  pdfunite turn-in-cover.pdf $pdf_output_file $(basename $output_file .md).pdf
+
+  rm $output_file
+  # keep html as pdf printing leaves a footnote
+  # rm $html_output_file
+  rm $pdf_output_file
 else
   echo "grip not found! - please install grip!"
 fi;

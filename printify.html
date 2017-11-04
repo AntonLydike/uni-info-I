@@ -10,21 +10,15 @@
     let container  = document.querySelectorAll('article')[0],
         children   = Array.from(container.children),
         length     = container.childElementCount,
-        elemBuffer = [];
+        elemBuffer = [],
+        hasContent = false;
 
     for (let i = 1; i < length; i++) {
       let prev = children[i - 1],
           curr = children[i];
 
-      if (curr.tagName.indexOf("H") !== 0) {
-        if (prev.tagName.indexOf("H") == 0) {
-          elemBuffer.push(prev);
-        }
-
-        elemBuffer.push(curr);
-
-      } else {
-        if (elemBuffer.length > 0) {
+      if (curr.tagName.indexOf("H") == 0) {
+        if (hasContent) {
           let wrapper = document.createElement("div");
 
           wrapper.classList.add('no-line-breaks');
@@ -35,8 +29,14 @@
 
           container.insertBefore(wrapper, curr);
 
-          elemBuffer = [];
+          elemBuffer = [curr];
+          hasContent = false;
+        } else {
+          elemBuffer.push(curr);
         }
+      } else {
+        elemBuffer.push(curr);
+        hasContent = true;
       }
     }
 
@@ -52,6 +52,7 @@
       container.appendChild(wrapper);
     }
 
+    // style
     let styleNode = document.createElement("style");
     styleNode.innerHTML = `#readme > h3 {
     display: none;
@@ -98,11 +99,18 @@
   `;
     document.body.appendChild(styleNode);
 
-
+    // footer
     let footer = document.createElement("footer");
     footer.innerText="Benjamin Ritter, Marina Huber und Anton Lydike";
 
     footer.innerHTML += `<span class="align-right">${document.querySelector("h1").innerText}</span>`;
     container.appendChild(footer);
+
+
+    // remove hyperlinks
+    let anchors = document.querySelectorAll("a");
+    anchors.forEach((e) => {
+      e.removeAttribute("href");
+    })
   })()
 </script>
