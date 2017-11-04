@@ -101,17 +101,11 @@ if command -v grip > /dev/null; then
   pdf_output_file=$(basename $output_file .md)-no-cover.pdf
 
   if command -v chromium-browser > /dev/null; then
-<<<<<<< Updated upstream
-    chromium-browser --headless --print-to-pdf="$(basename $output_file .md).pdf" $filepath > /dev/null
-  elif command -v google-chrome > /dev/null; then
-    google-chrome --headless --print-to-pdf="$(basename $output_file .md).pdf" $filepath > /dev/null
-=======
     echo "Printing pdf using chromium-browser...";
     chromium-browser --headless --print-to-pdf="$pdf_output_file" $filepath > /dev/null 2> /dev/null
   elif command -v google-chrome > /dev/null; then
     echo "Printing pdf using google-chrome...";
     google-chrome --headless --print-to-pdf="$pdf_output_file" $filepath > /dev/null 2> /dev/null
->>>>>>> Stashed changes
   else
     echo "Sadly neither chrome nor chromium are presesent, so there is no easy way to convert the html to pdf."
     exit 0;
