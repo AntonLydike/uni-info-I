@@ -1,0 +1,21 @@
+2001: INIT      3000
+2002: SPRUNG    1000, 2009
+2003: INIT      1001
+2004: ADD       1001, 1000
+2005: ADD       1001, 1000
+2006: ADD       3000, 1001
+2007: DEKREMENT 1000
+2008: SPRUNG    2002
+2009: AUSGABE   3000
+
+/* Angenommen AUSGABE beendet das Program (wie return)
+   lässt sich ein befehl einsparen */
+
+2001: INIT      3000
+2002: AUSGABE   1000, 3000
+2003: INIT      1001
+2004: ADD       1001, 1000
+2005: ADD       1001, 1000
+2006: ADD       3000, 1001
+2007: DEKREMENT 1000
+2008: SPRUNG    2002

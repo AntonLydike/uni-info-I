@@ -1,0 +1,2 @@
+ - `4 + 3 + 2 + 1 = 10`
+ - Summe aller Natürlichen Zahlen von 0 bis n, oder `(2 * (n + 1))/2`
