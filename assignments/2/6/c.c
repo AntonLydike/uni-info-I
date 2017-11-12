@@ -3,15 +3,11 @@
 
 int main (void)
 {
-  int zaehler, nenner;
   double bruch;
 
-  printf("Bitte geben Sie einen Dezimalbruch in folgendem format ein:");
-  printf("<zaehler>/<nenner>: ");
+  printf("Bitte geben Sie einen Dezimalbruch ein:");
 
-  scanf("%i/%i", &zaehler, &nenner);
-
-  bruch = (double) zaehler / nenner;
+  scanf("%lf", &bruch);
 
   printf("%.0f\n", ceil(bruch));
 

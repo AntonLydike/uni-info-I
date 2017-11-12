@@ -3,15 +3,11 @@
 
 int main (void)
 {
-  int zaehler, nenner;
   double bruch;
 
-  printf("Bitte geben Sie einen Dezimalbruch zwischen -1 und 1 in folgendem ");
-  printf("format ein: <zaehler>/<nenner>: ");
-  
-  scanf("%i/%i", &zaehler, &nenner);
+  printf("Bitte geben Sie einen Dezimalbruch zwischen -1 und 1 ein: ");
 
-  bruch = (double) zaehler / nenner;
+  scanf("%lf", &bruch);
 
   printf("Arcus Sinus von %.2f ist %.4f\n", bruch, asin(bruch));
 

@@ -114,7 +114,7 @@ if command -v grip > /dev/null; then
   # add cover to pdf and save as a cover version
   pdfunite turn-in-cover.pdf $pdf_output_file $(basename $output_file .md).pdf
 
-  rm $output_file
+  # rm $output_file
   # keep html as pdf printing leaves a footnote
   # rm $html_output_file
   rm $pdf_output_file

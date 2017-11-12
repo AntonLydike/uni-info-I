@@ -1,23 +1,25 @@
 #include <stdio.h>
 #include <ctype.h>
 
-int main (void)
+int main(void)
 {
-  char eingabe;
-  printf("Bitte geben Sie ein Zeichen ein: ");
-  scanf("%c", &eingabe);
+	char eingabe;
 
-  /* das if statement eigentlich unnötig, da tolower nur uppercase buchstaben
-   * verändert. Demnach hätte
-   * printf("%c", tolower(eingabe))
-   * das gleiche ergebnis.
-   */
+	printf("Bitte geben Sie ein Zeichen ein: ");
+	scanf("%c", &eingabe);
 
-  if (isupper(eingabe)) {
+	/* das if statement eigentlich unnötig, da tolower nur uppercase buchstaben
+	 * verändert. Demnach hätte
+	 * printf("%c", tolower(eingabe))
+	 * das gleiche ergebnis.
+	 */
+
+	if (isupper(eingabe)) {
     printf("%c\n", tolower(eingabe));
-  } else {
+  }	else {
     printf("%c\n", eingabe);
   }
 
-  return 0;
+
+	return 0;
 }
