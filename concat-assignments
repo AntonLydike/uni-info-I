@@ -95,6 +95,8 @@ fi;
 
 if command -v grip > /dev/null; then
 
+  echo "rendering markdown";
+
   html_output_file="$(basename $output_file .md).html"
   grip $output_file --export $html_output_file > /dev/null 2> /dev/null
 
