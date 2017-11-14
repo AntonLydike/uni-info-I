@@ -3,7 +3,7 @@
 int main(void) {
   double input1, input2;
 
-  printf("Bitte geben Sie zwei nichtnegative Zahlen, getrennt durch ein Leerzeochen ein:");
+  printf("Bitte geben Sie zwei nichtnegative Zahlen, getrennt durch ein Leerzeichen ein:");
 
   if (
     scanf("%lf %lf", &input1, &input2) != 2

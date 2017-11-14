@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <ctype.h>
 
 int main(void) {
   int input1;
@@ -11,7 +10,8 @@ int main(void) {
     scanf("%i%c", &input1, &input2) != 2
     || getchar() != '\n'
     || input1 < 0
-    || !islower(input2)
+    || input2 < 97
+    || input2 > 122
   ) {
     printf("Ungültige eingabe!\n");
   } else {
