@@ -1,0 +1,8 @@
+ - Steuerwerk schreibt 200 nach `AM`
+ - Steuerwerk schreibt 5 nach `WM`
+ - Steuerwerk setzt `D` auf Schreiben (1)
+ - Steuerwerk sendet `A`
+ - Speicherwerk liest Adresse von `AM` (200)
+ - Speicherwerk liest Daten von `WM` (5)
+ - Speicherwerk überschreibt Inhalt der `SZ 200` mit 5
+ - Speicherwerk sendet `T`

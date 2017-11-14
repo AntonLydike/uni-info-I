@@ -1,0 +1,7 @@
+ - Steuerwerk schreibt `100` nach `AM`
+ - Steuerwerk setzt `D` auf `lesen` (0)
+ - Steuerwerk sendet `A` (`Data Transfer Acknowledge`)
+ - Speicherwerk liest `D` (0 also `lesen`)
+ - Speicherwerk liest Adresse von `AM` (100)
+ - Speicherwerk legt Inhalt von `SZ 100` auf `RM`
+ - Speicherwerk sendet `T`
