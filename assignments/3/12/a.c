@@ -1,15 +1,15 @@
 #include <stdio.h>
 
 int main(void) {
-  int input;
+	int input;
 
-  printf("Bitte geben Sie eine ganze Zahl ein: ");
+	printf("Bitte geben Sie eine ganze Zahl ein: ");
 
-  if (scanf("%i", &input) != 1 || getchar() != '\n') {
-    printf("Ungültige eingabe!\n");
-  } else {
-    printf("Die eingegebene Zahl ist: %i\n", input);
-  }
+	if (scanf("%i", &input) != 1 || getchar() != '\n') {
+		printf("Ungültige eingabe!\n");
+	} else {
+		printf("Die eingegebene Zahl ist: %i\n", input);
+	}
 
-  return 0;
+	return 0;
 }
