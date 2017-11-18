@@ -1,0 +1,10 @@
+1.  `char`
+2.  `int`
+3.  `double`
+4.  `int`
+5.  `double`
+6.  `char`
+7.  `int`
+8.  `char`
+9.  `double`
+10. `double`
