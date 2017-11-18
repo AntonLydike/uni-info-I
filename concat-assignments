@@ -60,7 +60,13 @@ function process_dir {
         printf "\n$CODE_TAG\n\n" >> $output_file
         printf "";
       elif [ "${d: -4}" == ".png" ] || [ "${d: -4}" == ".jpg" ]; then
-        # if it's an image, link to it
+
+        # exclude images that are included into other md files
+      	if [[ "$d" =~ \.include\. ]]; then
+          continue;
+        fi;
+
+      	# if it's an image, link to it
         printf "$d [img]\n"
 
         # insert image as markdown tag
