@@ -4,8 +4,4 @@
 
 **Infixnotation**
 
-` printf("%i", x * 2)`
-
- oder
-
-`"%i" printf (x * 2)`
+`printf("%i", x * 2)`
