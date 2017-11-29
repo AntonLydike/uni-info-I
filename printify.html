@@ -7,7 +7,11 @@
    *
    */
   (() => {
-    let container  = document.querySelectorAll('article')[0],
+    const qa = (...a) => document.querySelectorAll(...a),
+          q  = (...a) => document.querySelector(...a),
+          ce = (...a) => document.createElement(...a);
+
+    let container  = q('article'),
         children   = Array.from(container.children),
         length     = container.childElementCount,
         elemBuffer = [],
@@ -133,5 +137,15 @@
       let t = e.innerText;
       if (/^(T|F)$/.test(t)) e.innerHTML = `<span class="inline-code bool-${t.toLowerCase()}">${t}</span>`;
     });
+
+    // parse code to add no-break statements to function bodys
+
+    let pre = qa(".highlight pre");
+
+    pre.forEach((e) => {
+      e.innerHTML = e.innerHTML.replace(/(<span class="pl-k">[^<]{2,8}<\/span> <span class="pl-en">[A-z_0-9]+<\/span>\s?\(\)\n^{[\s\S]+?^})/gm, '<div class="no-line-breaks">$1</div>');
+    })
+
+    console.log(pre);
   })()
 </script>
