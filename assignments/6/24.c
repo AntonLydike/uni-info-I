@@ -4,7 +4,7 @@
 
 #define MAX_INPUT_LENGTH 10
 
-int read_num(char input[]) {
+int read_int(char input[]) {
         int inlen = 0;
         char read = getchar();
 
@@ -47,7 +47,7 @@ int main (void)
 {
         char result[MAX_INPUT_LENGTH + 1] = { 0 };
 
-        if (read_num(result)) {
+        if (read_int(result)) {
                 printf("%s\n", result);
         } else {
                 printf("readerror!\n");
