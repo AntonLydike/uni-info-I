@@ -4,6 +4,11 @@
 # test files
 test.c
 
+# generated files
+/assignments-*.pdf
+/assignments-*.html
+/assignments-*.md
+
 # Object files
 *.o
 *.ko
