@@ -39,7 +39,14 @@ int main (int argc, char *argv[])
 
         printf("requested %d random numbers.\n", n);
 
-        random = (int *) calloc(n, sizeof(int));
+        if (n == 0) return 0;
+
+        random = calloc(n, sizeof(int));
+
+        if (random == NULL) {
+                printf("Well, I guess you should by memory. Yes, I know it's stupidly expensive atm.");
+                return 1;
+        }
 
         srand((unsigned) time(&t));
 
