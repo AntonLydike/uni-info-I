@@ -52,6 +52,10 @@ function process_dir {
 
       # only print c, h, png, jpg and md files
       if [ "${d: -2}" == ".c" ] || [ "${d: -2}" == ".h" ]; then
+        if [[ "$printname" =~ ^test.* ]]; then
+          continue;
+        fi;
+
         # if it's a file, record it's contents
         printf "$d [code]\n"
 
