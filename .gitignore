@@ -1,6 +1,9 @@
 # Prerequisites
 *.d
 
+#haskell hack files
+*.hs
+
 # test files
 test.c
 test.*.c
